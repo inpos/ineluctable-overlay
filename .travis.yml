@@ -18,6 +18,11 @@ before_install:
   # Install development portage (it should have the latest suggestions)
   - "git clone git://git.overlays.gentoo.org/proj/portage.git $HOME/portage"
 
+  # Set portage's profile
+  - "export USERLAND=GNU"
+  - "export USE_EXPAND=USERLAND"
+  - "export USE_EXPAND_HIDDEN=USERLAND"
+
 script:
   - "$HOME/portage/bin/repoman -vx full"
 #  - "$HOME/portage/bin/repoman -vx full --include-dev"
