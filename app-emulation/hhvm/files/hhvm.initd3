@@ -1,0 +1,46 @@
+#!/sbin/runscript
+# Copyright 1999-2013 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+description="Virtual Machine, Runtime, and JIT for PHP"
+
+HHVM_CONFIG="/etc/hhvm/${RC_SVCNAME}.hdf"
+
+HHVM_LIB={$HHVM_LIB:-/usr/lib/hhvm/lib}
+pidfile="/var/run/${RC_SVCNAME}.pid"
+logfile="/var/log/hhvm/${RC_SVCNAME}-server.log"
+
+depend() {
+	need net localmount
+	use dns logger
+	after bootmisc
+}
+
+checkconfig() {
+	if [ ! -f "${HHVM_CONFIG}" ] ; then
+		eerror "Please create ${HHVM_CONFIG}"
+		eerror "Sample conf: /etc/hhvm/config.hdf.dist"
+		return 1
+	fi
+	return 0
+}
+
+start() {
+	checkconfig || return $?
+
+	ebegin "Starting HipHop VM (${RC_SVCNAME})"
+	LD_LIBRARY_PATH="${hhvm_lib}" start-stop-daemon --start --background \
+		--exec "${HHVM_BINARY}" \
+		--make-pidfile --pidfile "${pidfile}" \
+		--stdout "${logfile}" \
+		--stderr "${logfile}" \
+		--env HPHP_HOME="${HHVM_LIB}/" \
+		-- -m server -c "${HHVM_CONFIG}"
+	eend $? "Failed to start HipHop VM (${RC_SVCNAME})"
+}
+
+stop() {
+	ebegin "Stopping HipHop VM (${RC_SVCNAME})"
+	start-stop-daemon --stop --pidfile "${pidfile}"
+	eend $? "Failed to stop HipHop VM (${RC_SVCNAME})"
+}
