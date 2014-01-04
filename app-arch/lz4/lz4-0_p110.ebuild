@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit cmake-utils multilib
+inherit cmake-utils
 
 DESCRIPTION="Extremely Fast Compression algorithm"
 HOMEPAGE="https://code.google.com/p/lz4/"
@@ -27,19 +27,9 @@ src_configure() {
 }
 
 src_install() {
-	dodir /usr
-	dodir "/usr/$(get_libdir)"
-	ln -s "$(get_libdir)" "${ED}usr/lib" || \
-		die "Cannot create temporary symlink from usr/lib to usr/$(get_libdir)"
-
 	cmake-utils_src_install
 
-	rm "${ED}usr/lib"
-
-	if [ -f "${ED}usr/bin/lz4c64" ]
-	then
-		dosym lz4c64 /usr/bin/lz4c
-	else
-		dosym lz4c32 /usr/bin/lz4c
-	fi
+	# install headers
+	insinto /usr/include
+	doins lz4hc.h lz4.h
 }
