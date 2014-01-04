@@ -6,8 +6,6 @@ EAPI=5
 
 inherit cmake-utils multilib
 
-CMAKE_USE_DIR="${S}/cmake"
-
 DESCRIPTION="Extremely Fast Compression algorithm"
 HOMEPAGE="https://code.google.com/p/lz4/"
 SRC_URI="https://${PN}.googlecode.com/files/${PN}-r${PV//0_p}.tar.gz"
@@ -21,11 +19,7 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${PN}-r${PV//0_p}"
-
-src_prepare() {
-	epatch "${FILESDIR}/${P}-install-to-bindir.patch"
-	cmake-utils_src_prepare
-}
+CMAKE_USE_DIR="${S}/cmake"
 
 src_configure() {
 	local mycmakeargs=(-DBUILD_SHARED_LIBS=ON)
