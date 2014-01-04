@@ -27,4 +27,5 @@ python_install_all() {
 	insinto /usr/include
 	doins "${S}"/ext-date-lib/timelib.h
 	doins "${S}"/ext-date-lib/timelib_structs.h
+	doins "${S}"/timelib_config.h
 }
