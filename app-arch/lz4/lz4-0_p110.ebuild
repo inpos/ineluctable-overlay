@@ -20,6 +20,8 @@ KEYWORDS="~amd64 ~x86"
 DEPEND=""
 RDEPEND="${DEPEND}"
 
+S="${WORKDIR}/${PN}-r${PV//0_p}"
+
 src_prepare() {
 	epatch "${FILESDIR}/${P}-install-to-bindir.patch"
 	cmake-utils_src_prepare
