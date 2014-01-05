@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,7 +8,7 @@ inherit user linux-info cmake-utils
 if [[ ${PV} == 9999 ]]; then
 	inherit git-2
 	EGIT_REPO_URI="git://github.com/facebook/hhvm.git"
-	EGIT_BRANCH="HHVM-2.2"
+	EGIT_BRANCH="master"
 	EGIT_HAS_SUBMODULES=1
 else
 	SRC_URI="https://github.com/facebook/${PN}/archive/HHVM-${PV}.tar.gz -> ${P}.tar.gz"
@@ -23,7 +23,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="+jemalloc +inotify debug doc test xen"
 
-RDEPEND="dev-cpp/glog
+COMMON_DEPEND="dev-cpp/glog
 	amd64? ( dev-cpp/glog[unwind] )
 	dev-libs/boost
 	virtual/mysql
@@ -47,14 +47,19 @@ RDEPEND="dev-cpp/glog
 	dev-libs/jemalloc[stats]
 	virtual/libiconv
 	sys-libs/libcap
-	dev-libs/elfutils
-	net-libs/c-client"
-DEPEND="${RDEPEND}
+	net-libs/c-client[kerberos]"
+DEPEND="${COMMON_DEPEND}
+	|| (
+		dev-libs/elfutils
+		dev-libs/libelf
+		sys-freebsd/freebsd
+	)
 	>=sys-devel/gcc-4.8.1:4.8[cxx]
 	test? (
 		dev-lang/php[simplexml,tokenizer,cli]
 		dev-php/ZendFramework
 	)"
+RDEPEND="${COMMON_DEPEND}"
 
 use test && need_php5_cli
 CMAKE_IN_SOURCE_BUILD="true"

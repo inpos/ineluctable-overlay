@@ -3,25 +3,21 @@
 # $Header: $
 
 EAPI=5
-inherit user linux-info cmake-utils
+inherit user multilib-minimal linux-info cmake-utils git-2
 
-if [[ ${PV} == 9999 ]]; then
-	inherit git-2
-	EGIT_REPO_URI="git://github.com/facebook/hhvm.git"
-	EGIT_BRANCH="master"
-	EGIT_HAS_SUBMODULES=1
-else
-	SRC_URI="https://github.com/facebook/${PN}/archive/HHVM-${PV}.tar.gz -> ${P}.tar.gz"
-	S="${WORKDIR}/${PN}-HHVM-${PV}"
-fi
+EGIT_REPO_URI="git://github.com/facebook/folly.git"
+# FIX: compilation error __builtin_ia32_crc32qi was not declared in this scope
+# (see https://github.com/facebook/folly/issues/42)
+EGIT_COMMIT="8e8b5e75d573305b7a9c34f4a405be5df0f17738"
 
 DESCRIPTION="HipHop Virtual Machine, Runtime and JIT for PHP"
 HOMEPAGE="http://www.hhvm.com"
+SRC_URI="https://github.com/facebook/${PN}/archive/HHVM-${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="PHP-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="+jemalloc +inotify debug doc test xen"
+IUSE="+jemalloc +inotify debug doc test xen kernel_linux"
 
 COMMON_DEPEND="dev-cpp/glog
 	amd64? ( dev-cpp/glog[unwind] )
@@ -47,26 +43,31 @@ COMMON_DEPEND="dev-cpp/glog
 	dev-libs/jemalloc[stats]
 	virtual/libiconv
 	sys-libs/libcap
-	net-libs/c-client[kerberos]"
+	net-libs/c-client[kerberos]
+	>=app-arch/lz4-0_p110"
+#	>=dev-python/timelib-0.2.4-r100
 DEPEND="${COMMON_DEPEND}
 	|| (
 		dev-libs/elfutils
 		dev-libs/libelf
 		sys-freebsd/freebsd
 	)
+	app-admin/chrpath
 	>=sys-devel/gcc-4.8.1:4.8[cxx]
 	test? (
-		dev-lang/php[simplexml,tokenizer,cli]
+		=dev-lang/php-5*[simplexml,tokenizer,cli]
 		dev-php/ZendFramework
 	)"
 RDEPEND="${COMMON_DEPEND}"
 
-use test && need_php5_cli
+S="${WORKDIR}/${PN}-HHVM-${PV}"
+EGIT_SOURCEDIR="${S}/hphp/submodules/folly"
+
 CMAKE_IN_SOURCE_BUILD="true"
 
 pkg_pretend() {
 	# checks for kernel options
-	if use inotify; then
+	if use kernel_linux && use inotify; then
 		CONFIG_CHECK="~INOTIFY_USER"
 		check_extra_config
 	fi
@@ -75,11 +76,6 @@ pkg_pretend() {
 	if [[ ${RC_SYS} == XENU ]]; then
 		eerror "Under XenU, 'xen' USE flag is required."
 		die
-	fi
-
-	# checks for php extensions
-	if use test; then
-		require_php_cli
 	fi
 }
 
@@ -91,9 +87,13 @@ pkg_setup() {
 }
 
 src_prepare() {
+	rm -r hphp/third_party/libsqlite3 || die
+#	rm -r hphp/third_party/timelib || die
+	rm -r hphp/third_party/lz4 || die
+	rm -r hphp/third_party/libzip || die
+	epatch "${FILESDIR}/remove.bundled-libs.patch"
 	# FIX: avoid symbols collision with dev-libs/icu
 	epatch "${FILESDIR}/cmake.patch"
-
 }
 src_configure() {
 	CMAKE_BUILD_TYPE="Release"
@@ -106,9 +106,10 @@ src_configure() {
 	# FIX: search x11-libs/libnotify headers in the proper directory
 	# FIX: Xen requires special defs (see https://github.com/facebook/hhvm/issues/981)
 	local mycmakeargs=(
-		"-DLIBEVENT_LIB=/opt/hhvm/lib64/libevent.so"
-		"-DLIBEVENT_INCLUDE_DIR=/opt/hhvm/include/"
-		"-DLIBINOTIFY_INCLUDE_DIR=/usr/include/libnotify"
+#		"-DLIBEVENT_LIB=/opt/hhvm/$(get_libdir)/libevent.so"
+#		"-DLIBEVENT_INCLUDE_DIR=/opt/hhvm/include/"
+#		"-DZLIB_LIBRARIES=/$(get_libdir)/libz.so.1"
+#		"-DLIBINOTIFY_INCLUDE_DIR=/usr/include/libnotify"
 		"-DCMAKE_PREFIX_PATH=${EPREFIX}${PREFIX}"
 		$(cmake-utils_use_no xen HARDWARE_COUNTER)
 	)
