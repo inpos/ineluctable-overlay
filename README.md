@@ -1,3 +1,5 @@
+Оставлено здесь, чтобы не потерялось
+
 ## Ineluctable Overlay
 
 [![Build Status](https://travis-ci.org/toffanin/ineluctable-overlay.png)](https://travis-ci.org/toffanin/ineluctable-overlay)
