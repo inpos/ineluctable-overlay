@@ -5,16 +5,42 @@
 #
 # NOTE: Please add your entry at the top!
 
+# Bruno Pinto <brunoferreirapinto@gmail.com> (1 Feb 2017)
+# Hard masked polybar version 3.0.x as a few bugs have been reported
+# and the masked polybar version is 2.X. Once jsoncpp-1.8 becomes
+# stable on Gentoo, we can mark the 2.X version as stable and the 3.0.X
+# as masked (and not hard masked).
+=x11-misc/polybar-3.0*
+
+# Toffanin Mauro <toffanin.mauro@gmail.com> (1 Aug 2015)
+# Hard masked all ganeti-webmgr version due to CVE issues
+# with dev-python/south
+app-emulation/ganeti-webmgr
+
+
+# Toffanin Mauro <toffanin.mauro@gmail.com> (10 Jun 2015)
+# USE flags 'hack-tools' and 'emacs' are known to not compile,
+# or to not work at all. Use them at your own risk.
+dev-php/hhvm
+
+
+# Toffanin Mauro <toffanin.mauro@gmail.com> (1 May 2015)
+# Hard masked all deprecated and testing branches of Dropbox.
+# Testing branches are notoriously buggy and unpredictable,
+# use them at your own risk.
+<net-misc/dropbox-3.14.0
+
+
 # Toffanin Mauro <toffanin.mauro@gmail.com> (30 Oct 2010)
 # Mask libndofdev because is a dead project and not more maintained by
-# the original developer Jan Ciger.
+# the original developer, Jan Ciger.
 # See dev-games/libndofdev/TODO for more details
 dev-games/libndofdev
 
 
 # Toffanin Mauro <toffanin.mauro@gmail.com>
 # Hoard 3.8 and 3.9 aren't compatibile with modern glibc such as 2.14+,
-# so use them at your own risk. Please, upgrade to v3.10
+# so use them at your own risk. Please, upgrade to v3.11
 =sys-libs/hoard-3.8
 =sys-libs/hoard-3.9
 
@@ -28,8 +54,18 @@ dev-games/libndofdev
 
 # Toffanin Mauro <toffanin.mauro@gmail.com>
 # Mask live vcs ebuilds.
-# If you're luck the ebuild doesn't compile; if you're not luck
+# If you're lucky the ebuild doesn't compile; if you're not lucky
 # the ebuild is gonna erase all the data on your computers.
-# I warned you to stay away from that ebuilds!
+# I warned you to stay away from this ebuild!
 # Tron lives.
 =dev-db/vertex-db-9999
+=dev-cpp/openFrameworks-9999
+=dev-cpp/clang-tags-9999
+=dev-python/django-object-permissions-9999
+=dev-python/muddle-9999
+=dev-ruby/mruby-9999
+=games-engines/panda3d-9999
+=games-engines/gameplay3d-9999
+=games-engines/featherkit-9999
+=app-editors/liteide-9999
+dev-util/flint

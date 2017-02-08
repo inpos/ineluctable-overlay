@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd></herd>
-	<maintainer>
+	<maintainer type="person">
 		<email>toffanin.mauro@gmail.com</email>
 		<name>Mauro Toffanin</name>
 		<description>Maintainer. Assign bugs to him</description>
@@ -17,8 +16,7 @@
 		folders with others across the Internet using file synchronization.
 	</longdescription>
 	<use>
-		<flag name="librsync-bundled">Use bundled librsync library</flag>
+		<flag name="system-librsync">Use the system-wide <pkg>net-libs/librsync</pkg> instead of bundled</flag>
 		<flag name="cli">Install the official Dropbox Command Line Interface</flag>
 	</use>
 </pkgmetadata>
-

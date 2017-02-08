@@ -1,9 +1,9 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
-inherit cmake-utils games
+inherit cmake-utils
 
 DESCRIPTION="Free/Libre Action Roleplaying game"
 HOMEPAGE="https://github.com/clintbellanger/flare-engine"
@@ -11,7 +11,7 @@ SRC_URI="https://github.com/clintbellanger/flare-engine/archive/v${PV}.tar.gz ->
 
 LICENSE="CC-BY-SA-3.0 GPL-3 OFL-1.1"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE=""
 
 RDEPEND="
@@ -21,12 +21,12 @@ RDEPEND="
 	media-libs/sdl-ttf"
 DEPEND="${RDEPEND}"
 
-S=${WORKDIR}/${PN}-engine-${PV}
+S="${WORKDIR}/${PN}-engine-${PV}"
 
 src_configure() {
 	local mycmakeargs=(
-		-DBINDIR="${GAMES_BINDIR}"
-		-DDATADIR="${GAMES_DATADIR}/${PN}"
+		-DBINDIR="/usr/bin"
+		-DDATADIR="/usr/share/${PN}"
 	)
 	cmake-utils_src_configure
 }

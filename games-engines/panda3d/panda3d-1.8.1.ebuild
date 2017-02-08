@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 PYTHON_COMPAT=( python2_7 )
-inherit base flag-o-matic eutils multiprocessing python-single-r1
+inherit eutils flag-o-matic eutils multiprocessing python-single-r1
 
 DESCRIPTION="Panda3D is a framework for 3D rendering and game development"
 HOMEPAGE="http://www.panda3d.org"
@@ -27,7 +27,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 # TODO: add static-libs
-IUSE="artoolkit bullet cg doc egl eigen +ffmpeg fftw fmod gles1 gles2 +jpeg npapi ode +openal opencv osmesa +png +python rocket examples contrib +squish +ssl sse threads +tiff +truetype xml +zlib pstats +xrandr"
+IUSE="artoolkit bullet cg doc egl eigen +ffmpeg fftw fmod gles1 gles2 +jpeg npapi ode +openal opencv osmesa +png +python rocket examples contrib +squish +ssl cpu_flags_x86_sse threads +tiff +truetype xml +zlib pstats +xrandr"
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
 RESTRICT="mirror"
@@ -39,22 +39,22 @@ COMMON_DEPEND="bullet? ( sci-physics/bullet )
 	cg? ( media-gfx/nvidia-cg-toolkit )
 	egl? ( media-libs/mesa[egl] )
 	eigen? ( dev-cpp/eigen:3 )
-	ffmpeg? ( virtual/ffmpeg )
+	ffmpeg? ( virtual/ffmpeg:0 )
 	fftw? ( sci-libs/fftw:2.1 )
-	fmod? ( media-libs/fmod )
+	fmod? ( media-libs/fmod:1 )
 	gles1? ( media-libs/mesa[gles1] )
 	gles2? ( media-libs/mesa[gles2] )
-	jpeg? ( virtual/jpeg )
+	jpeg? ( virtual/jpeg:0 )
 	npapi? ( net-misc/npapi-sdk )
 	ode? ( dev-games/ode )
 	openal? ( media-libs/openal )
 	opencv? ( media-libs/opencv )
 	osmesa? ( media-libs/mesa[osmesa] )
-	png? ( media-libs/libpng )
+	png? ( media-libs/libpng:0 )
 	python? ( ${PYTHON_DEPS} )
 	rocket? ( dev-libs/libRocket )
-	ssl? ( dev-libs/openssl )
-	tiff? ( media-libs/tiff )
+	ssl? ( dev-libs/openssl:0 )
+	tiff? ( media-libs/tiff:0 )
 	truetype? ( media-libs/freetype )
 	zlib? ( sys-libs/zlib )
 	pstats? ( dev-cpp/gtkmm:2.4 )
@@ -89,7 +89,8 @@ pkg_setup() {
 }
 
 src_prepare() {
-	base_src_prepare
+	epatch "${PATCHES[@]}"
+	epatch_user
 
 	# move bullet samples together with all the other examples
 	if use examples; then
@@ -145,7 +146,7 @@ src_compile() {
 		$(use_no pstats gtk2)
 		$(use_no rocket)
 		$(use_no squish)
-		$(use_no sse sse2)
+		$(use_no cpu_flags_x86_sse sse2)
 		$(use_no ssl openssl)
 		$(use_no tiff)
 		$(use_no truetype freetype)

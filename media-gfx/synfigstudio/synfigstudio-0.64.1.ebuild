@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 inherit eutils fdo-mime autotools
@@ -18,7 +18,7 @@ DEPEND="
 	dev-cpp/gtkmm:2.4
 	>=media-gfx/synfig-${PV}
 	dev-libs/libsigc++:2
-	fmod? ( media-libs/fmod )"
+	fmod? ( media-libs/fmod:1 )"
 RDEPEND=${DEPEND}
 
 src_prepare() {
