@@ -1,9 +1,8 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
-
 inherit flag-o-matic
 
 DESCRIPTION="Library to deal with DWARF Debugging Information Format"
@@ -12,11 +11,8 @@ SRC_URI="http://www.prevanders.net/${P}.tar.gz"
 
 LICENSE="GPL-2 LGPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~x86"
+KEYWORDS="amd64 arm x86"
 IUSE=""
-
-DEPEND=""
-RDEPEND="${DEPEND}"
 
 DOCS=(NEWS README CHANGES)
 
@@ -32,7 +28,7 @@ src_configure() {
 }
 
 src_install() {
-#	#dolib.a libdwarf.a || die
+#	dolib.a libdwarf.a || die
 	dolib.so libdwarf.so || die
 
 	insinto /usr/include

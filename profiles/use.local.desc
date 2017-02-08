@@ -2,8 +2,8 @@
 # your descriptions to your package's metadata.xml ONLY.
 # * generated automatically using egencache *
 
-app-editors/liteide:gdb - Enables support for sys-devel/gdb
 app-emulation/ganeti-webmgr:webserver - Enable internal webserver; disable this use if you want to serve the application using Django with traditional webservers like: www-servers/apache, www-servers/nginx, dev-python/twisted or www-servers/lighttpd.
+app-emulation/vagrant:virtualbox - Support management of VirtualBox virtualisation (one of app-emulation/virtualbox or app-emulation/virtualbox-ose)
 app-misc/recoll:audio - Index audio files
 app-misc/recoll:camelcase - Enable indexing for camelCase sentences and words
 app-misc/recoll:chm - Index chm files
@@ -21,23 +21,32 @@ app-misc/recoll:session - Stop monitoring file alterations when X11 session term
 app-misc/recoll:tex - Index TeX files
 app-misc/recoll:wordperfect - Index WordPerfect documents
 app-misc/recoll:xml - Index several XML-based formats (Abiword, FictionBook, Kword, Office OpenXML, OpenDocument, SVG)
+app-misc/watchman:ssp - Enables the use of Stack Protection
+dev-cpp/openFrameworks:fmod - Enables support for package media-libs/fmod
+dev-cpp/openFrameworks:generator - Enables compilation of a tool, called projectGenerator, which can be used to automate the process of creating new openFrameworks projects and add-ons.
 dev-lang/luajit:lua52compat - Enable some upwards-compatible features from Lua 5.2 that are unlikely to break existing code.
-dev-libs/oniguruma:combination-explosion-check - enable combination explosion check
-dev-libs/oniguruma:crnl-as-line-terminator - enable CR+NL as line terminator
-dev-php/ZendFramework:cli - Enables the CLI
-dev-php/ZendFramework:doc - Installs the documentation
-dev-php/ZendFramework:examples - Installs the examples
-dev-php/ZendFramework:minimal - Installs the minimal version without Dojo toolkit, tests and demos
+dev-php/hhvm:hack - Includes support for the HACK language
+dev-php/hhvm:hack-tools - Includes support for the HACK tools
+dev-php/hhvm:jemalloc - Uses dev-libs/jemalloc for allocation
+dev-php/hhvm:jsonc - Uses dev-libs/json-c
+dev-php/hhvm:xen - Enables support for app-emulation/xen backends
+dev-php/hhvm:zend-compat - Enables Zend source compatibility
 dev-util/codexl:opencl - Enable OpenCL support (AMD only)
+dev-util/crash:extensions - Build the extesions library
 dev-util/google-perftools:cpu-profiler - Build the CPU profiler
 dev-util/google-perftools:heap-checker - Build the HEAP checker
 dev-util/google-perftools:heap-profiler - Build the HEAP profiler
 dev-util/google-perftools:minimal - Build only the support for tcmalloc
+dev-util/systemtap:crash - Enables support for Red Hat crash utility dev-util/crash
+dev-util/systemtap:libvirt - Enables support for Virtual Machine management through app-emulation/libvirt
+dev-util/systemtap:server - Enables building of stap-server
 dev-vcs/gitflow-avh:fish-completion - Enable fish completion support.
 games-engines/Torque3D:asserts - Enables support for asserts
 games-engines/Torque3D:profiler - Enables support for the OpenGL profiler
 games-engines/Torque3D:tools - Builds game engines tools and game editor
+games-engines/featherkit:sfml - Build media-libs/libsfml backend.
 games-engines/godot:dds - Enable support for the DDS Texture loader
+games-engines/godot:etc - Enable support for texture compression
 games-engines/godot:minizip - Enable support for the minizip library
 games-engines/godot:nedmalloc - Enable support for nedmalloc
 games-engines/godot:pvr - Enable support for the PVR (PowerVR) Texture loader
@@ -62,37 +71,41 @@ games-engines/panda3d:pstats - Builts the PStats viewer for graphical analysis o
 games-engines/panda3d:rocket - Enables support of package dev-libs/libRocket
 games-engines/panda3d:squish - Enables support for DXT1, DXT3, DXT5 pre-compressed texture images through package
 games-engines/panda3d:xrandr - Enables XRandR window extension support
+games-engines/redpanda:aio - Enables asynchronous IO support
 games-engines/redpanda:egl - Uses EGL instead of default GLX to manage OpenGL
 games-engines/redpanda:gles - Enables OpenGL ES 1.x/2.x backend for acceleration
 games-engines/redpanda:sfml - Enables Simple and Fast Multimedia Library (SFML) as a backend for acceleration
+games-engines/redpanda:tools - Build sgame engines tools
+games-engines/redpanda-docs:api - Generates RedPanda's Application Program Interface (API) documentation
+games-engines/redpanda-docs:manual - Generate RedPanda's Manual
 games-strategy/ufo-ai:debug - Prepares for backtraces and debugging output
 games-strategy/ufo-ai:dedicated - Build the stuff necessary to run a dedicated server
 games-strategy/ufo-ai:editor - Build map editor
 games-strategy/ufo-ai:game - Build the stuff necessary to run and play the game
 games-strategy/ufo-ai:sse - Use the SSE instruction set
-media-gfx/assimp:boost - Build Assimp with dev-libs/boost support
-media-gfx/assimp:samples - Build the official samples
-media-gfx/assimp:tools - Build supplementary tools for Assimp
+games-strategy/wesnoth:fribidi - Enable FriBIDi support
+games-strategy/wesnoth:server - Enable compilation of server
+games-strategy/wesnoth:tools - Enable compilation of tools for artists and WML maintainers
+media-gfx/appleseed:alembic - Use external media-libs/alembic library
+media-gfx/appleseed:cli - Build appleseed.cli
+media-gfx/appleseed:qt - Build appleseed.studio
+media-gfx/appleseed:tools - Build appleseed tools
+media-gfx/synfig:avcodec - Enables libavcodec support for video/audio encoding/decoding. libavcodec is part of FFmpeg.
+media-gfx/synfig:swscale - Enables image scaling and conversion via libswscale (part of FFmpeg).
 media-gfx/synfigstudio:fmod - Enables support for music and sound effects
 media-libs/artoolkit:utils - Build utilities
+media-libs/libsfml:gles1 - Enables OpenGL ES 1.x backend for acceleration instead of standard desktop OpenGL
+net-libs/polarssl:havege - Enables the sys-apps/haveged random number generator. Warning: the HAVEGE random generator is not suitable for virtualized environments
+net-libs/polarssl:programs - Build PolarSSL programs
 net-misc/dropbox:cli - Install the official Dropbox Command Line Interface
 net-misc/dropbox:librsync-bundled - Use bundled librsync library
+net-misc/dropbox:system-librsync - Use the system-wide net-libs/librsync instead of bundled
 net-misc/vde:experimental - Enable experimental features (async notifies, plugin support, packet counter).
 net-misc/vde:kernel-switch - Enable kernel switch.
 net-misc/vde:pcap - Enable the pcap-based plugin that allows creating a switch against a real interface.
 net-misc/vde:ssl - Enable the cryptcab plugin that allows creating an encrypted virtual cable.
 net-misc/vde:tuntap - Enable tun/tap interfaces.
 sys-apps/nix:boehm-gc - Enable Hans Boehm's garbage collector (dev-libs/boehm-gc)
-www-client/netsurf:bmp - BMP bitmap image support (media-libs/libnsbmp)
-www-client/netsurf:fbcon_frontend_able - Use framebuffer frontend able
-www-client/netsurf:fbcon_frontend_linux - Use framebuffer frontend linux
-www-client/netsurf:fbcon_frontend_sdl - Use framebuffer frontend sdl
-www-client/netsurf:fbcon_frontend_vnc - Use framebuffer frontend vnc
-www-client/netsurf:fbcon_frontend_x - Use framebuffer frontend X
-www-client/netsurf:pdf-writer - PDF output support (media-libs/libharu)
-www-client/netsurf:rosprite - RISC OS Sprite bitmap image support (media-libs/librosprite)
-www-client/netsurf:svgtiny - SVG image support via media-libs/svgatiny instead of gnome-base/librsvg
-www-client/netsurf:webp - WebP image support (media-libs/libwebp)
 x11-base/xynth:client - compile Xynth X11 client
 x11-base/xynth:fbdev - compile X11 driver for frame buffer devices
 x11-base/xynth:server - compile Xynth X11 server

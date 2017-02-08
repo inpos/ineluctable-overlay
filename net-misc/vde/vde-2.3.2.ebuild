@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 PYTHON_COMPAT=( python2_7 )
@@ -9,7 +9,7 @@ inherit user python-r1 linux-info
 MY_P="${PN}2-${PV}"
 S="${WORKDIR}/${MY_P}"
 
-DESCRIPTION="vde2 is a virtual distributed ethernet emulator for emulators like qemu, bochs, and uml"
+DESCRIPTION="A virtual distributed ethernet emulator for qemu, bochs, and uml"
 SRC_URI="mirror://sourceforge/vde/${MY_P}.tar.bz2"
 HOMEPAGE="http://vde.sourceforge.net"
 SLOT="0"
@@ -19,7 +19,7 @@ KEYWORDS="~amd64 ~arm ~x86"
 IUSE="pcap ssl static-libs python experimental debug tuntap kernel-switch"
 
 RDEPEND="pcap? ( net-libs/libpcap )
-	ssl? ( dev-libs/openssl )"
+	ssl? ( dev-libs/openssl:0 )"
 DEPEND="${RDEPEND}"
 
 pkg_pretend() {
